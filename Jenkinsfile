@@ -4,21 +4,21 @@ pipeline {
         pollSCM('*/1 * * * *')
     }
     stages {
-        stage('Obtain code from repository') {
+        stage('get-code') {
             steps {
                 echo "Obtaining code from GitHub repository"
                 git branch: "main", url: "https://github.com/dragana-st/api-tests-final.git"
             }
         }
 
-        stage('Build docker image') {
+        stage('build-docker-image') {
             steps {
                 echo "Building docker image from Dockerfile"
                 sh "docker build -t draganast/api-tests:latest ."
             }
         }
 
-        stage('Push docker image to Docker Hub') {
+        stage('push-docker-image') {
             steps {
                 echo "Pushing docker image to Docker Hub"
                 withCredentials([usernamePassword(
