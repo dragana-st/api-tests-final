@@ -21,17 +21,8 @@ pipeline {
         stage('push-docker-image') {
             steps {
                 echo "Pushing docker image to Docker Hub"
-                withCredentials([usernamePassword(
-                    credentialsId: 'DockerHub-Credentials',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    sh """
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push draganast/api-tests:latest
-                    """
+                sh "docker push draganast/api-tests:latest"
                 }
-            }
         }
     }
 }
